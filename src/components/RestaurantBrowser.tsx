@@ -54,7 +54,7 @@ export function RestaurantBrowser() {
 
   return (
     <>
-      <SectionTransition id="selection" className="bg-smoke pt-16 pb-32 md:pt-32 md:pb-52 min-h-screen">
+      <SectionTransition id="selection" className="bg-smoke pt-16 pb-40 md:pt-32 md:pb-64 min-h-screen">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2 mb-10 md:mb-16">
