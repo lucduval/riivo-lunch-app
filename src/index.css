@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-parchment text-carbon font-sans antialiased selection:bg-mustard selection:text-parchment overflow-x-hidden;
+  }
+}
+
+/* Scrollbar adjustment for aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-parchment;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-carbon/20 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-carbon/40;
+}
+
+/* Animated underline for nav links */
+.nav-link {
+  @apply relative;
+}
+.nav-link::after {
+  content: '';
+  @apply absolute left-0 -bottom-1 h-[2px] w-0 bg-mustard rounded-full;
+  transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.nav-link:hover::after {
+  @apply w-full;
+}
