@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { supabase } from '../lib/supabase';
 import { useCart } from '../lib/CartContext';
-import { MagneticButton } from './MagneticButton';
 import { X, Sparkles, ChevronRight, ShoppingCart } from 'lucide-react';
 
 type AdvisorProps = {

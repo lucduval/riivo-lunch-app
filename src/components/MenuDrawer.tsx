@@ -9,7 +9,7 @@ import { MealAdvisor } from './MealAdvisor';
 import { SnarkyComment } from './SnarkyComment';
 import { getSnarkyComment } from '../lib/snarkyComments';
 import { useAuth } from '../lib/AuthContext';
-import { X, Search, Sparkles, ChevronLeft, Check, Minus, Plus, StickyNote, Wine } from 'lucide-react';
+import { X, Search, Sparkles, ChevronLeft, Minus, Plus, StickyNote, Wine } from 'lucide-react';
 
 interface MenuDrawerProps {
   restaurant: Restaurant | null;
