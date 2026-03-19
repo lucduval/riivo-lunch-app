@@ -13,8 +13,9 @@ export type Restaurant = {
 }
 
 const mockRestaurants: Restaurant[] = [
-  { id: '11111111-1111-4111-8111-111111111111', name: 'La Colombe', cuisine: 'Fine Dining', delivery_time: 'N/A', image_url: 'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=800', coming_soon: true },
   { id: '22222222-2222-4222-8222-222222222222', name: "Posticino's", cuisine: 'Italian', delivery_time: '35 mins', image_url: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&q=80&w=800' },
+  { id: '44444444-4444-4444-8444-444444444444', name: 'The Lebanese Bakery', cuisine: 'Lebanese', delivery_time: '30 mins', image_url: 'https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&q=80&w=800' },
+  { id: '11111111-1111-4111-8111-111111111111', name: 'La Colombe', cuisine: 'Fine Dining', delivery_time: 'N/A', image_url: 'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=800', coming_soon: true },
   { id: '33333333-3333-4333-8333-333333333333', name: 'Chefs Warehouse', cuisine: 'Fine Dining', delivery_time: 'N/A', image_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800', coming_soon: true },
 ];
 
@@ -28,7 +29,13 @@ export function RestaurantBrowser() {
       try {
         const { data } = await supabase.from('restaurants').select('*');
         if (data && data.length > 0) {
-          setRestaurants(data);
+          const preferredOrder = ['Posticino\'s', 'The Lebanese Bakery', 'La Colombe', 'Chefs Warehouse'];
+          const sorted = [...data].sort((a, b) => {
+            const ai = preferredOrder.indexOf(a.name);
+            const bi = preferredOrder.indexOf(b.name);
+            return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+          });
+          setRestaurants(sorted);
         } else {
           setRestaurants(mockRestaurants);
         }
@@ -47,7 +54,7 @@ export function RestaurantBrowser() {
 
   return (
     <>
-      <SectionTransition id="selection" className="bg-smoke py-16 md:py-32 min-h-screen">
+      <SectionTransition id="selection" className="bg-smoke py-16 pb-24 md:py-32 md:pb-44 min-h-screen">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2 mb-10 md:mb-16">

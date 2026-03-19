@@ -139,7 +139,7 @@ export function MenuDrawer({ restaurant, onClose }: MenuDrawerProps) {
     onClose();
   };
 
-  const categories = ['Antipasti', 'Pasta', 'Baked Pasta', 'Panini', 'Pizza', 'Mains', 'Salads'];
+  const categories = ['Antipasti', 'Pasta', 'Baked Pasta', 'Panini', 'Pizza', 'Mains', 'Salads', 'Breads', 'Dips & Spreads', 'Wraps & Sandwiches', 'Sides', 'Desserts'];
 
   const filteredItems = searchQuery.trim()
     ? menuItems.filter(item =>

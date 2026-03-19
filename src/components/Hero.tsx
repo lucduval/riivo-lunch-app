@@ -37,7 +37,7 @@ export function Hero() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full h-[100dvh] flex items-center overflow-hidden bg-gradient-to-b from-[#FAF7F0] via-[#EDE4D0] to-[#D9CEAF]">
+    <section ref={containerRef} className="relative w-full h-[100dvh] flex items-center overflow-hidden bg-gradient-to-b from-[#FAF8F3] via-[#EBE4D6] to-[#D6CEBA]">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row h-full">
 
         {/* Text anchors bottom-left */}
