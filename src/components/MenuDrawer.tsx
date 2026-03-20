@@ -32,10 +32,14 @@ type Recommendation = {
 type Step = 'MENU' | 'REVIEW' | 'EXTRAS' | 'CONFIRM' | 'SUCCESS';
 
 const mockDrinks = [
-  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1', name: 'Sparkling Water', price: 35.0, category: 'Drinks' },
-  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2', name: 'Cold Brew Coffee', price: 45.0, category: 'Drinks' },
-  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3', name: 'Fresh Orange Juice', price: 40.0, category: 'Drinks' },
-  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb4', name: 'Still Water', price: 25.0, category: 'Drinks' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1', name: 'Juicy Lucy', price: 45.0, category: 'Drinks', description: 'A lager so smooth it\'ll make you forget it\'s a Tuesday.' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2', name: 'Jack Black', price: 50.0, category: 'Drinks', description: 'Craft beer for people who say "I only drink craft" at every braai.' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3', name: 'Castle Lite', price: 40.0, category: 'Drinks', description: 'The official beer of "just one more" turning into six.' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb4', name: 'Black Label', price: 38.0, category: 'Drinks', description: 'Champion beer. Champion decisions. Questionable afternoons.' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb5', name: 'Gin & Tonic', price: 65.0, category: 'Drinks', description: 'Because you\'re classy. Or at least that\'s what gin drinkers tell themselves.' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb6', name: 'Brandy & Coke', price: 55.0, category: 'Drinks', description: 'The South African handshake. Oom would be proud.' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb7', name: 'Red Wine', price: 70.0, category: 'Drinks', description: 'For the sophisticated ones who swirl before they sip. At lunch. On a weekday.' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb8', name: 'White Wine', price: 65.0, category: 'Drinks', description: 'Pairs well with pasta, questionable life choices, and a 2pm meeting you forgot about.' },
 ];
 
 export function MenuDrawer({ restaurant, onClose }: MenuDrawerProps) {
@@ -426,14 +430,14 @@ export function MenuDrawer({ restaurant, onClose }: MenuDrawerProps) {
               {step === 'EXTRAS' && (
                 <div>
                   <h3 className="font-baskerville text-2xl text-carbon mb-2">Anything else?</h3>
-                  <p className="font-mono text-xs text-carbon/50 uppercase tracking-wider mb-4">Add drinks or leave a note for the kitchen</p>
+                  <p className="font-mono text-xs text-carbon/50 uppercase tracking-wider mb-4">Oliver handles the drinks — the restaurant doesn't</p>
                   <SnarkyComment key={'extras-' + commentKey} comment={snarkyComment} />
 
                   {/* Drinks section */}
                   <div className="mb-10">
                     <div className="flex items-center gap-3 mb-5">
                       <Wine size={18} className="text-carbon/40" />
-                      <h4 className="font-mono text-sm uppercase tracking-widest text-carbon">Drinks</h4>
+                      <h4 className="font-mono text-sm uppercase tracking-widest text-carbon">Oliver's Bar</h4>
                       <div className="h-[1px] flex-1 bg-carbon/20" />
                     </div>
 
@@ -442,7 +446,10 @@ export function MenuDrawer({ restaurant, onClose }: MenuDrawerProps) {
                         const inCart = items.find(i => i.id === drink.id);
                         return (
                           <div key={drink.id} className={`bg-smoke border rounded-[1.5rem] p-4 transition-all duration-300 ${inCart ? 'border-mustard/50 bg-mustard/5' : 'border-carbon/10 hover:border-mustard/30'}`}>
-                            <span className="font-baskerville text-base leading-tight block mb-2">{drink.name}</span>
+                            <span className="font-baskerville text-base leading-tight block mb-1">{drink.name}</span>
+                            {drink.description && (
+                              <span className="font-mono text-[10px] text-carbon/40 leading-snug block mb-2">{drink.description}</span>
+                            )}
                             <div className="flex justify-between items-center">
                               <span className="font-mono text-sm text-carbon/60">R{drink.price.toFixed(2)}</span>
                               {inCart ? (
@@ -515,7 +522,7 @@ export function MenuDrawer({ restaurant, onClose }: MenuDrawerProps) {
                   {/* Drink items */}
                   {drinkItems.length > 0 && (
                     <div className="mb-6">
-                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-carbon/40 mb-3">Drinks</h4>
+                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-carbon/40 mb-3">Drinks (via Oliver)</h4>
                       <div className="space-y-2">
                         {drinkItems.map(item => (
                           <div key={item.id} className="flex justify-between items-center py-2">

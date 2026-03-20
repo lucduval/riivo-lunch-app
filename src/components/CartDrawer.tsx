@@ -7,8 +7,10 @@ import { MagneticButton } from './MagneticButton';
 import { X } from 'lucide-react';
 
 const mockDrinks = [
-  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1', name: 'Sparkling Water', price: 35.0, category: 'Drinks' },
-  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2', name: 'Cold Brew Coffee', price: 45.0, category: 'Drinks' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1', name: 'Juicy Lucy', price: 45.0, category: 'Drinks' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2', name: 'Jack Black', price: 50.0, category: 'Drinks' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3', name: 'Castle Lite', price: 40.0, category: 'Drinks' },
+  { id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb4', name: 'Black Label', price: 38.0, category: 'Drinks' },
 ];
 
 export function CartDrawer() {

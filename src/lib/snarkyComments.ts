@@ -114,15 +114,19 @@ const reviewComments = (items: CartItem[], total: number) => {
 };
 
 const extrasNoDrinks = [
-  "No drink? Bold. Dry food, dry personality.",
-  "You're skipping a drink? The food will be judging you.",
-  "Water from the tap it is, then.",
-  "No drink. Just vibes and dehydration.",
+  "No drink? Bold. Dry food, dry personality. Oliver's disappointed.",
+  "You're skipping a drink? Oliver didn't stock the bar for nothing.",
+  "Water from the tap it is, then. Oliver will remember this.",
+  "No drink. Just vibes and dehydration. The sober island of the office.",
+  "Skipping Oliver's menu? He's already drafting a passive-aggressive email.",
 ];
 
 const extrasWithDrinks = [
-  "A drink too? Look at you, living lavishly.",
-  "Hydration secured. Nic approves. Slightly.",
+  "Alcohol at lunch? On a weekday? In this economy? ...Respect.",
+  "Oliver approves. Your afternoon calendar does not.",
+  "A drink with lunch. Productivity was overrated anyway.",
+  "Bold. Boozy. Beautiful. Oliver's beaming with pride.",
+  "One drink at lunch never hurt anyone. That's what they all say.",
 ];
 
 const extrasNoteComments = [

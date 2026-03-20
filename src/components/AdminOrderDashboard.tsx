@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
-import { X, Copy, Check, ChevronDown, ChevronUp, Users, ClipboardList } from 'lucide-react';
+import { X, Copy, Check, ChevronDown, ChevronUp, Users, ClipboardList, Wine } from 'lucide-react';
 
 type Order = {
   id: string;
@@ -27,7 +27,7 @@ export function AdminOrderDashboard({ onClose }: { onClose: () => void }) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [allUsers, setAllUsers] = useState<UserRole[]>([]);
   const [loading, setLoading] = useState(true);
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<string | false>(false);
   const [showNotSubmitted, setShowNotSubmitted] = useState(false);
   const [selectedDate, setSelectedDate] = useState(() => {
     const now = new Date();
@@ -134,7 +134,38 @@ export function AdminOrderDashboard({ onClose }: { onClose: () => void }) {
   const copyMessage = (restaurantName: string, restaurantOrders: Order[]) => {
     const msg = generateMessage(restaurantName, restaurantOrders);
     navigator.clipboard.writeText(msg);
-    setCopied(true);
+    setCopied(restaurantName);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Aggregate all drink items across all orders for Oliver
+  const allDrinkItems: Array<{ name: string; quantity: number }> = [];
+  for (const order of orders) {
+    for (const item of order.items) {
+      if (item.category !== 'Drinks') continue;
+      const existing = allDrinkItems.find(i => i.name === item.name);
+      if (existing) {
+        existing.quantity += item.quantity;
+      } else {
+        allDrinkItems.push({ name: item.name, quantity: item.quantity });
+      }
+    }
+  }
+
+  const generateOliverMessage = () => {
+    if (allDrinkItems.length === 0) return '';
+    let message = `Oliver, drinks order for today:\n\n`;
+    for (const item of allDrinkItems) {
+      const qty = item.quantity > 1 ? `${item.quantity}x ` : '';
+      message += `• ${qty}${item.name}\n`;
+    }
+    message += '\nCheers.';
+    return message;
+  };
+
+  const copyOliverMessage = () => {
+    navigator.clipboard.writeText(generateOliverMessage());
+    setCopied('oliver');
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -217,6 +248,31 @@ export function AdminOrderDashboard({ onClose }: { onClose: () => void }) {
                 </div>
               )}
 
+              {/* Oliver's Drinks Order */}
+              {allDrinkItems.length > 0 && (
+                <div className="mb-8">
+                  <div className="flex items-center justify-between mb-4 gap-3">
+                    <div className="flex items-center gap-2">
+                      <Wine size={18} className="text-carbon/40" />
+                      <h3 className="font-baskerville text-lg md:text-xl text-carbon">Oliver's Drinks</h3>
+                    </div>
+                    <button
+                      onClick={copyOliverMessage}
+                      className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider bg-carbon text-parchment px-4 py-2 rounded-full hover:bg-mustard hover:text-carbon transition-colors"
+                    >
+                      {copied === 'oliver' ? <Check size={12} /> : <Copy size={12} />}
+                      {copied === 'oliver' ? 'Copied' : 'Copy for Oliver'}
+                    </button>
+                  </div>
+
+                  <div className="bg-smoke rounded-xl border border-carbon/10 p-4 mb-4">
+                    <pre className="font-mono text-xs text-carbon/70 whitespace-pre-wrap leading-relaxed">
+                      {generateOliverMessage()}
+                    </pre>
+                  </div>
+                </div>
+              )}
+
               {/* Orders by restaurant with copy message */}
               {Object.entries(ordersByRestaurant).map(([restaurantName, restaurantOrders]) => (
                 <div key={restaurantName} className="mb-8">
@@ -226,8 +282,8 @@ export function AdminOrderDashboard({ onClose }: { onClose: () => void }) {
                       onClick={() => copyMessage(restaurantName, restaurantOrders)}
                       className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider bg-carbon text-parchment px-4 py-2 rounded-full hover:bg-mustard hover:text-carbon transition-colors"
                     >
-                      {copied ? <Check size={12} /> : <Copy size={12} />}
-                      {copied ? 'Copied' : 'Copy Message'}
+                      {copied === restaurantName ? <Check size={12} /> : <Copy size={12} />}
+                      {copied === restaurantName ? 'Copied' : 'Copy Message'}
                     </button>
                   </div>
 
