@@ -97,34 +97,12 @@ export function AdminOrderDashboard({ onClose }: { onClose: () => void }) {
       }
     }
 
-    // Also gather drink items
-    const drinkItems: Array<{ name: string; quantity: number }> = [];
-    for (const order of restaurantOrders) {
-      for (const item of order.items) {
-        if (item.category !== 'Drinks') continue;
-        const existing = drinkItems.find(i => i.name === item.name);
-        if (existing) {
-          existing.quantity += item.quantity;
-        } else {
-          drinkItems.push({ name: item.name, quantity: item.quantity });
-        }
-      }
-    }
-
     let message = `Hi ${restaurantName}, please can we order the following:\n\n`;
 
     for (const item of allItems) {
       const qty = item.quantity > 1 ? `${item.quantity}x ` : '';
       const note = item.note ? ` — ${item.note}` : '';
       message += `• ${qty}${item.name}${note}\n`;
-    }
-
-    if (drinkItems.length > 0) {
-      message += '\n';
-      for (const item of drinkItems) {
-        const qty = item.quantity > 1 ? `${item.quantity}x ` : '';
-        message += `• ${qty}${item.name}\n`;
-      }
     }
 
     message += '\nThank you.';
