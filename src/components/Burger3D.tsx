@@ -22,8 +22,8 @@ export function Burger3D() {
         // Gentle floating — only starts after entrance animation is done
         layers.forEach((layer, i) => {
           gsap.to(layer, {
-            y: `-=${6 + i * 1.5}`,
-            duration: 2.8 + i * 0.15,
+            y: `-=${12 + i * 3}`,
+            duration: 2.4 + i * 0.15,
             yoyo: true,
             repeat: -1,
             ease: "sine.inOut",
