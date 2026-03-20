@@ -10,26 +10,27 @@ export function Burger3D() {
 
     const layers = gsap.utils.toArray('.burger-layer') as HTMLElement[];
 
-    // Gentle floating — keep it straight, no rotationZ drift
-    layers.forEach((layer, i) => {
-      gsap.to(layer, {
-        y: `-=${6 + i * 1.5}`,
-        duration: 2.8 + i * 0.15,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-        delay: i * 0.12
-      });
-    });
-
-    // Entrance stagger
+    // Entrance stagger first, then start floating once it finishes
     gsap.from('.burger-layer', {
       opacity: 0,
       y: "+=60",
       scale: 0.9,
       duration: 1.4,
       stagger: 0.08,
-      ease: "power3.out"
+      ease: "power3.out",
+      onComplete: () => {
+        // Gentle floating — only starts after entrance animation is done
+        layers.forEach((layer, i) => {
+          gsap.to(layer, {
+            y: `-=${6 + i * 1.5}`,
+            duration: 2.8 + i * 0.15,
+            yoyo: true,
+            repeat: -1,
+            ease: "sine.inOut",
+            delay: i * 0.12
+          });
+        });
+      }
     });
 
     // Subtle mouse-tracking tilt
